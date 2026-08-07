@@ -1,0 +1,45 @@
+{
+  "shuffled": {
+    "n_tf": 132,
+    "motif_discover": {
+      "auroc": 0.8419795454545455,
+      "time": 0.3
+    },
+    "proto": {
+      "auroc": 0.8427318181818182,
+      "time": 1.562121212121212
+    },
+    "streme": {
+      "auroc": 0.8031409090909091,
+      "time": 3.2560606060606063
+    },
+    "wilcoxon_p_md_vs_streme": 4.084930882330143e-07,
+    "md_vs_streme": {
+      "wins": 85,
+      "losses": 43,
+      "ties": 4
+    }
+  },
+  "genomic": {
+    "n_tf": 53,
+    "n_tf_meme": 53,
+    "motif_discover": {
+      "auroc": 0.8908716981132075,
+      "time": 0.3
+    },
+    "proto": {
+      "auroc": 0.873511320754717
+    },
+    "streme": {
+      "auroc": 0.8633150943396226
+    },
+    "meme": {
+      "auroc": 0.8805075471698113
+    },
+    "wilcoxon_p_md_vs_streme": 0.0006482589396361803,
+    "md_vs_streme": {
+      "wins": 35,
+      "losses": 16
+    }
+  }
+}
