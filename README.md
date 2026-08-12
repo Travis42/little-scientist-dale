@@ -101,9 +101,9 @@ The agent wrote the Python strategy through 118 iterations of hypothesis → imp
 
 ## Citation
 
-> *Citation and DOI will be added upon publication.*
+Smith, Travis. (2026). The Little Scientist: Hypothesis-Driven Iterative Algorithm Discovery by LLM Agents. Zenodo. https://doi.org/10.5281/zenodo.21907349
 
-This repository is companion code for an upcoming paper. If you use DALE before the paper is published, please reference this repository.
+If you use DALE before the paper is published, please reference this repository and the Zenodo deposit.
 
 ## License
 
