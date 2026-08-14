@@ -8,7 +8,7 @@
 
 📄 **Paper:** [doi.org/10.5281/zenodo.21907349](https://doi.org/10.5281/zenodo.21907349)
 
-DALE is a motif discovery algorithm written in C that outperforms STREME (the default in the MEME Suite) across 132 ENCODE transcription factors while running 11× faster. It was discovered autonomously by an LLM-based agent operating within the [SEF (Scientific Experiment Framework)](https://github.com/travis42/little-scientist-delta-v) — the agent wrote the algorithm from scratch through iterative hypothesis testing.
+DALE is a motif discovery algorithm written in C that outperforms STREME (the default in the MEME Suite) across 132 ENCODE transcription factors while running 11× faster. It was discovered autonomously by an LLM-based agent operating within the [Little Scientist framework](https://github.com/travis42/little-scientist-delta-v) — the agent wrote the algorithm from scratch through iterative hypothesis testing.
 
 Distributed as a single 906 KB statically-linked binary — no dependencies, no compilation, no container required. Source code included for full reproducibility.
 
@@ -75,7 +75,7 @@ Full walkthrough: [`docs/ALGORITHM_OVERVIEW.md`](docs/ALGORITHM_OVERVIEW.md)
 
 ## Origin
 
-DALE was discovered by an autonomous LLM agent (GLM-4.7) operating within the SEF framework. The agent was given a scoring function (AUROC on held-out ChIP-seq data), a smoke-test environment, and iterative feedback. It wrote the Python strategy through 118 iterations of hypothesis → implementation → empirical testing. The winning strategy was ported to C for performance. See [`sef/`](sef/) for the original strategy and agent prompt.
+DALE was discovered by an autonomous LLM agent (GLM-4.7) operating within the Little Scientist framework. The agent was given a scoring function (AUROC on held-out ChIP-seq data), a smoke-test environment, and iterative feedback. It wrote the Python strategy through 118 iterations of hypothesis → implementation → empirical testing. The winning strategy was ported to C for performance. See [`sef/`](sef/) for the original strategy and agent prompt.
 
 ---
 
