@@ -4,7 +4,7 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Travis42/little-scientist-dale/blob/main/head_to_head_benchmark.ipynb)
 
-**Try it in your browser** — the notebook runs DALE live on sample ChIP-seq data and reproduces the head-to-head benchmark against STREME. Click the badge above to open in Google Colab, then Runtime → Run All.
+**Try it in your browser** — click the badge above to open in Google Colab, then Runtime → Run All. First run takes ~3 minutes (MEME Suite install + compile). The benchmark itself runs in ~1 minute.
 
 📄 **Paper:** [doi.org/10.5281/zenodo.21907349](https://doi.org/10.5281/zenodo.21907349)
 
