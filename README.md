@@ -2,38 +2,32 @@
 
 **Fast, accurate de novo DNA motif discovery for ChIP-seq data.**
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Travis42/little-scientist-dale/blob/main/head_to_head_benchmark.ipynb)
+
+**Try it in your browser** — the notebook runs DALE live on sample ChIP-seq data and reproduces the head-to-head benchmark against STREME. Click the badge above to open in Google Colab, then Runtime → Run All.
+
+📄 **Paper:** [doi.org/10.5281/zenodo.21907349](https://doi.org/10.5281/zenodo.21907349)
+
 DALE is a motif discovery algorithm written in C that outperforms STREME (the default in the MEME Suite) across 132 ENCODE transcription factors while running 11× faster. It was discovered autonomously by an LLM-based agent operating within the [SEF (Scientific Experiment Framework)](https://github.com/travis42/little-scientist-delta-v) — the agent wrote the algorithm from scratch through iterative hypothesis testing.
 
-Distributed as a single 928 KB statically-linked binary — no dependencies, no compilation, no container required. Source code included for full reproducibility.
+Distributed as a single 906 KB statically-linked binary — no dependencies, no compilation, no container required. Source code included for full reproducibility.
 
 ---
 
 ## Results
 
-Benchmarked on **132 ENCODE K562 ChIP-seq** transcription factor datasets against STREME 5.5.5, MEME 5.5.5, and proto-motif-discover (earlier prototype).
+Benchmarked on **132 ENCODE K562 ChIP-seq** transcription factor datasets against STREME 5.5.5 and MEME 5.5.5.
 
 ### Accuracy
 
-| Benchmark | DALE | proto | STREME | MEME |
-|-----------|:----:|:-----:|:------:|:----:|
-| **Shuffled neg.** (132 TFs) | **0.842** | 0.843 | 0.803 | — |
-| **Genomic neg.** (53 TFs) | **0.891** | 0.874 | 0.863 | 0.881 |
-
-DALE significantly outperforms STREME on both benchmarks (Wilcoxon p = 4.1×10⁻⁷ and 6.5×10⁻⁴) and matches/exceeds MEME on genomic negatives — while running 11–15× faster than STREME and ~300× faster than MEME.
+- **Shuffled negatives (132 TFs):** DALE 0.842 vs STREME 0.803 (Wilcoxon p = 4.1×10⁻⁷)
+- **Genomic negatives (53 TFs):** DALE 0.891 vs STREME 0.863 (Wilcoxon p = 6.5×10⁻⁴)
 
 ### Speed
 
-| Tool | Per TF | Full 132-TF | vs. STREME |
-|------|:------:|:-----------:|:----------:|
-| **DALE** | **0.3s** | **~45s** | **11×** |
-| STREME | 3.3s | ~7 min | 1× |
-| MEME | ~90s | ~3 hr | 0.003× |
-
-### Statistical Significance (vs. STREME)
-
-| Test | Shuffled (132) | Genomic (53) |
-|------|:--------------:|:------------:|
-| Wilcoxon p | 4.1×10⁻⁷ | 6.5×10⁻⁴ |
+- **DALE:** 0.3s/TF (~45s for all 132 TFs) — 11× faster than STREME
+- **STREME:** 3.3s/TF (~7 min for all 132)
+- **MEME:** ~90s/TF (~3 hr for all 132)
 
 Full scoreboard: [`results/SCOREBOARD.md`](results/SCOREBOARD.md)
 
@@ -41,19 +35,16 @@ Full scoreboard: [`results/SCOREBOARD.md`](results/SCOREBOARD.md)
 
 ## Quick Start
 
-### Option 1: Pre-compiled binary (no build required)
+### Pre-compiled binary (no build required)
 
 ```bash
 # Discover motifs in a ChIP-seq FASTA file
 ./bin/dale < input_sequences.fa
-
-# With Markov-1 background scoring on negatives
-./bin/dale --markov < input_sequences.fa
 ```
 
-The binary is statically linked — works on any Linux x86_64 system with no dependencies.
+Works on any Linux x86_64 system with no dependencies.
 
-### Option 2: Build from source
+### Build from source
 
 ```bash
 cd src/
@@ -62,12 +53,6 @@ make
 ```
 
 Requires only a C99 compiler and libm.
-
-### Try it in your browser
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/travis42/little-scientist-dale/blob/main/demo_notebook.ipynb)
-
-The demo notebook runs DALE live on sample ChIP-seq data and reproduces all benchmark figures.
 
 ---
 
@@ -84,18 +69,13 @@ DALE uses a multi-resolution pipeline:
 7. **Pareto-front ranking** — multi-objective selection (discriminative score vs. width efficiency)
 8. **Quadratic padding penalty** — prevents over-extension of narrow motifs
 
-Full algorithm walkthrough: [`docs/ALGORITHM_OVERVIEW.md`](docs/ALGORITHM_OVERVIEW.md)
+Full walkthrough: [`docs/ALGORITHM_OVERVIEW.md`](docs/ALGORITHM_OVERVIEW.md)
 
 ---
 
 ## Origin
 
-DALE was discovered by an autonomous LLM agent (GLM-4.7) operating within the SEF framework. The agent was given:
-- A scoring function (AUROC on held-out ChIP-seq data)
-- A smoke-test environment for local validation
-- Iterative feedback (per-TF diagnostics)
-
-The agent wrote the Python strategy through 118 iterations of hypothesis → implementation → empirical testing. The winning strategy was then ported to C for performance. The original Python strategy and agent prompt are included in [`sef/`](sef/) for reproducibility.
+DALE was discovered by an autonomous LLM agent (GLM-4.7) operating within the SEF framework. The agent was given a scoring function (AUROC on held-out ChIP-seq data), a smoke-test environment, and iterative feedback. It wrote the Python strategy through 118 iterations of hypothesis → implementation → empirical testing. The winning strategy was ported to C for performance. See [`sef/`](sef/) for the original strategy and agent prompt.
 
 ---
 
@@ -103,14 +83,6 @@ The agent wrote the Python strategy through 118 iterations of hypothesis → imp
 
 Smith, Travis. (2026). The Little Scientist: Hypothesis-Driven Iterative Algorithm Discovery by LLM Agents. Zenodo. https://doi.org/10.5281/zenodo.21907349
 
-If you use DALE before the paper is published, please reference this repository and the Zenodo deposit.
-
 ## License
 
 Apache License 2.0. See [LICENSE](LICENSE). Includes an explicit patent grant.
-
-## Requirements
-
-- **Binary:** Any Linux x86_64 (statically linked, no dependencies)
-- **Build:** C99 compiler, libm
-- **Notebook:** Python 3.8+, see `demo_notebook.ipynb`
